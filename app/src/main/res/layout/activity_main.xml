@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <!--Edittext for getting course Name-->
+    <Button
+        android:id="@+id/sewage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:text="Sewage"
+        android:importantForAutofill="no"
+        android:inputType="text" />
+
+    <!--Edittext for getting course Duration-->
+    <Button
+        android:id="@+id/bus_stop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:text="Bus Stop"
+        android:importantForAutofill="no"
+        android:inputType="time" />
+
+    <!--Edittext for getting course Description-->
+
+    <!--Button for adding your course to Firebase-->
+    <Button
+        android:id="@+id/idBtnSubmitCourse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Street Lights"
+        android:textAllCaps="false" />
+
+    <!--Button for showing the list of added courses-->
+    <TextView
+        android:id="@+id/admin_module"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_margin="10dp"
+        android:text="Admin"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:layout_marginVertical="12dp"
+        android:background="@color/black"
+        android:textAllCaps="false" />
+
+</LinearLayout>

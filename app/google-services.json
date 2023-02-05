@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "883100278719",
+    "project_id": "crowd-data-collection-6c54d",
+    "storage_bucket": "crowd-data-collection-6c54d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:883100278719:android:233571ea9a8bfd51748b0a",
+        "android_client_info": {
+          "package_name": "com.example.crowddatacollection"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "883100278719-8udch0s3fhceouc0jlf10i8u0b6ako8a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7v3_6B_nPFkNTisSW6XKXnVlKv3AIoSw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "883100278719-8udch0s3fhceouc0jlf10i8u0b6ako8a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
