@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
 
     tools:context=".Activity_Details">
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:text=""
+        android:textSize="22sp"
+
+
+        android:id="@+id/getFile"
+
+        />
     <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"

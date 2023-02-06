@@ -36,6 +36,8 @@ public class CourseRVAdapter extends RecyclerView.Adapter<CourseRVAdapter.ViewHo
     public void onBindViewHolder(@NonNull CourseRVAdapter.ViewHolder holder, int position) {
         // setting data to our text views from our modal class.
         Details courses = DetailsArrayList.get(position);
+        String NO =  String.valueOf(position+1)+")";
+        holder.no.setText(NO);
         holder.longitude.setText(String.valueOf( courses.getLongitude()));
         holder.latitude.setText(String.valueOf( courses.getLatitude()));
         holder.time.setText(courses.getDateAndTime());
@@ -52,10 +54,12 @@ public class CourseRVAdapter extends RecyclerView.Adapter<CourseRVAdapter.ViewHo
         private final TextView longitude;
         private final TextView latitude;
         private final TextView time;
+        private final TextView no;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             // initializing our text views.
+            no=itemView.findViewById(R.id.no);
             longitude = itemView.findViewById(R.id.idTVCourseName);
             latitude = itemView.findViewById(R.id.idTVCourseDuration);
             time= itemView.findViewById(R.id.idTVCourseDescription);

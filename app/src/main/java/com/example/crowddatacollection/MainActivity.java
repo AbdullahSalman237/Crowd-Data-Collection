@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -51,7 +52,7 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
 
 
-
+    private static final int STORAGE_PERMISSION_CODE = 101;
     // creating variable for button
     private Button Lights,bus_stop,sewage;
     private TextView admin_module;
@@ -66,9 +67,9 @@ public class MainActivity extends AppCompatActivity {
 
     // Initializing other items
     // from layout file
-    SimpleDateFormat sdf = new SimpleDateFormat("'\n'dd-MM-yyyy '\n'HH:mm:ss ");
+    SimpleDateFormat sdf = new SimpleDateFormat("'\n'dd-MM-yyyy'\t'HH:mm:ss ");
 
-    String currentDateAndTime = sdf.format(new Date());
+    String currentDateAndTime;
     float longi = 0;
     float lati = 0;
 
@@ -80,8 +81,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, 112);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        getLastLocation();
+
         // getting our instance
         // from Firebase Firestore.
         db = FirebaseFirestore.getInstance();
@@ -96,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
         admin_module.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                currentDateAndTime = sdf.format(new Date());
                 // opening a new activity on button click
                 Intent i = new Intent(MainActivity.this,Admin.class);
                 startActivity(i);
@@ -104,31 +107,46 @@ public class MainActivity extends AppCompatActivity {
         bus_stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (isLocationEnabled()) {
+                    currentDateAndTime = sdf.format(new Date());
+                    getLastLocation();
+                    // calling method to add data to Firebase Firestore.
+                    addDataToFirestore("bus_stop");
+                }else {
+                    Toast.makeText(MainActivity.this, "Please turn on your location...", Toast.LENGTH_LONG).show();
 
-                // calling method to add data to Firebase Firestore.
-                addDataToFirestore("bus_stop");
-
+                }
             }
 
         });
         sewage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (isLocationEnabled()) {
+                    currentDateAndTime = sdf.format(new Date());
+                    getLastLocation();
+                    // calling method to add data to Firebase Firestore.
+                    addDataToFirestore("sewage");
 
-                // calling method to add data to Firebase Firestore.
-                addDataToFirestore("sewage");
+                } else {
+                    Toast.makeText(MainActivity.this, "Please turn on your location...", Toast.LENGTH_LONG).show();
 
+                }
             }
-
         });
         // adding on click listener for button
         Lights.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (isLocationEnabled()) {
 
+                    getLastLocation();
                     // calling method to add data to Firebase Firestore.
-                    addDataToFirestore("Lights");
+                    addDataToFirestore("street_lights");
+                }else {
+                    Toast.makeText(MainActivity.this, "Please turn on your location...", Toast.LENGTH_LONG).show();
 
+                }
             }
 
         });
@@ -165,9 +183,7 @@ private void getLastLocation() {
                         //  latitudeTextView.setText(location.getLatitude() + "");
 
                         //  longitTextView.setText(location.getLongitude() + "");
-                        String x = location.getLatitude() + " " + location.getLongitude() + "      " + currentDateAndTime;
 
-                        Toast.makeText(MainActivity.this, x, Toast.LENGTH_SHORT).show();
                         longi = (float) location.getLongitude();
                         lati = (float) location.getLatitude();
 
@@ -176,7 +192,7 @@ private void getLastLocation() {
                 }
             });
         } else {
-            Toast.makeText(this, "Please turn on" + " your location...", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Please turn on your location...", Toast.LENGTH_LONG).show();
 
         }
     } else {
@@ -209,8 +225,6 @@ private void getLastLocation() {
         public void onLocationResult(LocationResult locationResult) {
             Location mLastLocation = locationResult.getLastLocation();
             //latitudeTextView.setText("Latitude: " + mLastLocation.getLatitude() + "");
-            String x = mLastLocation.getLatitude()+" "+mLastLocation.getLongitude()+"                "+currentDateAndTime;
-            Toast.makeText(MainActivity.this, x, Toast.LENGTH_SHORT).show();
 
 //            longitTextView.setText("Longitude: " + mLastLocation.getLongitude() + "");
 
@@ -233,9 +247,12 @@ private void getLastLocation() {
 
     // method to request for permissions
     private void requestPermissions() {
+
+
         ActivityCompat.requestPermissions(this, new String[]{
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_ID);
+
     }
 
     // method to check
@@ -291,32 +308,19 @@ private void getLastLocation() {
             public void onFailure(@NonNull Exception e) {
                 // this method is called when the data addition process is failed.
                 // displaying a toast message when data addition is failed.
-                Toast.makeText(MainActivity.this, "Fail to add course \n" + e, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Fail to add data\n" + e, Toast.LENGTH_SHORT).show();
             }
         });
     }
+    public void checkPermission(String permission, int requestCode) {
+        if (ContextCompat.checkSelfPermission(MainActivity.this, permission) == PackageManager.PERMISSION_DENIED) {
+            Toast.makeText(MainActivity.this, "not granted", Toast.LENGTH_SHORT).show();
+            // Requesting the permission
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{permission}, requestCode);
+        } else {
+            Toast.makeText(MainActivity.this, "Permission already granted", Toast.LENGTH_SHORT).show();
+        }
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

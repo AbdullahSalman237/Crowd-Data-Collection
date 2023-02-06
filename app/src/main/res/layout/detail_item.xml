@@ -15,7 +15,14 @@
         android:layout_margin="2dp"
         android:orientation="vertical"
         android:padding="4dp">
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/no"
+            android:text="0"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            />
         <!--Textview for displaying our Course Name-->
         <TextView
             android:id="@+id/idTVCourseName"

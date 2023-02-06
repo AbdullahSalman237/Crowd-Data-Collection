@@ -24,7 +24,7 @@ public class Admin extends AppCompatActivity {
             public void onClick(View v) {
                 // opening a new activity on button click
                 Intent i = new Intent(Admin.this,Activity_Details.class);
-                i.putExtra("message_key", "Lights");
+                i.putExtra("message_key", "street_lights");
                 startActivity(i);
             }
         });
