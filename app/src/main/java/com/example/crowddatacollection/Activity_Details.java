@@ -83,7 +83,7 @@ public class Activity_Details extends AppCompatActivity {
         // receive the value by getStringExtra() method and
         // key must be same which is send by first activity
         String str = intent.getStringExtra("message_key");
-        filePath= new File(Environment.getExternalStorageDirectory() + "/"+str+".csv");
+        filePath= new File(Environment.getExternalStorageDirectory() + "/"+str+".xls");
         ID = findViewById(R.id.ID);
         ID.setText(str);
         // initializing our variables.
@@ -173,16 +173,16 @@ public class Activity_Details extends AppCompatActivity {
                     hssfCell.setCellValue("Date and Time");
 
 
-
-                    for (int j=1;j<coursesArrayList.size();j++)
+                    Toast.makeText(Activity_Details.this, coursesArrayList.get(0).getDateAndTime(), Toast.LENGTH_SHORT).show();
+                    for (int j=1;j<=coursesArrayList.size();j++)
                 {
                     hssfRow = hssfSheet.createRow(j);
                     hssfCell = hssfRow.createCell(0);
-                    hssfCell.setCellValue(coursesArrayList.get(j).longitude);
+                    hssfCell.setCellValue(coursesArrayList.get(j-1).getLongitude());
                     hssfCell = hssfRow.createCell(1);
-                    hssfCell.setCellValue(coursesArrayList.get(j).latitude);
+                    hssfCell.setCellValue(coursesArrayList.get(j-1).getLatitude());
                     hssfCell = hssfRow.createCell(2);
-                    hssfCell.setCellValue(coursesArrayList.get(j).dateAndTime);
+                    hssfCell.setCellValue(coursesArrayList.get(j-1).getDateAndTime());
 
 
                 }
